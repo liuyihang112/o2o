@@ -1,0 +1,30 @@
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xmlns="http://xmlns.jcp.org/xml/ns/javaee" 
+    xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" 
+    id="WebApp_ID" version="3.1" metadata-complete="true">
+
+	<!-- 在访问时，可以直接使用localhost:8080/项目名   来进行访问，此时可以使用下面的配置指定默认访问的
+	的文件，会先去访问index.jsp，若不存在，则去访问index.html。若都不存在，则报404.若不配置，则默认访问
+	根目录webapp下的index.jsp
+	 -->
+	<display-name>Archetype Created Web Application</display-name>
+	<welcome-file-list>
+		<welcome-file>index.jsp</welcome-file>
+	</welcome-file-list>
+  	<display-name>Archetype Created Web Application</display-name>
+  
+  	<servlet>
+  		<servlet-name>spring-dispatcher</servlet-name>
+  		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+  		<init-param>
+  			<param-name>contextConfigLocation</param-name>
+  			<param-value>classpath:spring/spring-*.xml</param-value>
+  		</init-param>
+  	</servlet>
+  	
+  	<servlet-mapping>
+  		<servlet-name>spring-dispatcher</servlet-name>
+  		<!-- 默认匹配所有请求 -->
+  		<url-pattern>/</url-pattern>
+  	</servlet-mapping>
+</web-app>

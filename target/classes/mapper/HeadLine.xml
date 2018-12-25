@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.imooc.o2o.entity.HeadLine">
+
+	<sql id="all_column">
+		o.line_id,o.line_name,o.line_link,o.link_img,o.priority,o.enable_status,o.create_time,o.last_edit_time
+	</sql>
+	
+	<sql id="all_where">
+		<if test="lineId != null and lineId != '' ">
+			and o.line_id = #{lineId}
+		</if>
+		<if test="lineName != null and lineName != '' ">
+			and o.line_name = #{lineName}
+		</if>
+		<if test="lineLink != null and lineLink != '' ">
+			and o.line_link = #{lineLink}
+		</if>
+		<if test="linkImg != null and linkImg != '' ">
+			and o.link_img = #{linkImg}
+		</if>
+		<if test="priority != null and priority != '' ">
+			and o.priority = #{priority}
+		</if>
+		<if test="enableStatus != null and enableStatus != '' ">
+			and o.enable_status = #{enableStatus}
+		</if>
+		<if test="createTime != null and createTime != '' ">
+			and o.create_time = #{createTime}
+		</if>
+		<if test="lastEditTime != null and lastEditTime != '' ">
+			and o.last_edit_time = #{lastEditTime}
+		</if>
+	</sql>
+	
+	<resultMap type="com.imooc.o2o.entity.HeadLine" id="HeadLineResultMap">
+		<!-- 用id做主键映射 -->
+		<id property="lineId" column="line_id"/>
+		<result property="lineName" column="line_name"/>
+		<result property="lineLink" column="line_link"/>
+		<result property="lineImg" column="line_img"/>
+		<result property="priority" column="priority"/>
+		<result property="enableStatus" column="enable_status"/>
+		<result property="createTime" column="create_time"/>
+		<result property="lastEditTime" column="last_edit_time"/>
+	</resultMap>
+</mapper>
