@@ -4,8 +4,26 @@ public class PathUtil {
 	
 	private static String seperator = System.getProperty("file.separator");
 	
+	/**
+	 * 设置图片的根目录
+	 */
 	public static String getImgBasePath() {
 		String os = System.getProperty("os.name");
 		String basePath = "";
+		if (os.toLowerCase().startsWith("win")) {
+			basePath = "G:/java大业视频/SSM到Spring Boot-从零开发校园商铺平台 加/Imgae";
+		}else {
+			basePath = "/home/xiangze/image";
+		}
+		basePath = basePath.replace("/", seperator);
+		return basePath;
+	}
+	
+	/**
+	 * 设置图片的子目录
+	 */
+	public static String getShopImagePath(long shopId) {
+		String imagePath = "/upload/item/shop/" + shopId + "/";
+		return imagePath.replace("/", seperator);
 	}
 }
