@@ -18,7 +18,9 @@
 	<mvc:resources location="/resources/" mapping="/resources/**" />
 	<mvc:default-servlet-handler /> 
 	
+	
 	<!-- 3.定义视图解析器,将WEB-INF/html里面的文件解析成.html文件 -->
+	<!-- 终于懂了这个玩意，就是WEB-INF文件夹下面的html是不能直接访问的，必须需要后台的视图解析器，去给他加头prefix和尾suffix才可以去对WEB-INF中的html进行访问 -->
 	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix" value="/WEB-INF/html/"></property>
 		<property name="suffix" value=".html"></property>

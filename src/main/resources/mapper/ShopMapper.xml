@@ -30,9 +30,5 @@
 		where shop_id=#{shopId}
 	</update>
 	
-	<delete id="deleteShop" parameterType="java.lang.Integer">
-		delete from tb_shop 
-		where shop_id = #{shopId}
-	</delete>
 	
 </mapper>    

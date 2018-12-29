@@ -5,7 +5,7 @@ public class PathUtil {
 	private static String seperator = System.getProperty("file.separator");
 	
 	/**
-	 * 设置图片的根目录
+	 * 设置生成图片的存放根目录
 	 */
 	public static String getImgBasePath() {
 		String os = System.getProperty("os.name");
@@ -20,7 +20,7 @@ public class PathUtil {
 	}
 	
 	/**
-	 * 设置图片的子目录
+	 * 设置生成图片的存放子目录
 	 */
 	public static String getShopImagePath(long shopId) {
 		String imagePath = "/upload/item/shop/" + shopId + "/";
