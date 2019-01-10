@@ -2,6 +2,7 @@ package com.imooc.o2o.util;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Random;
@@ -26,11 +27,11 @@ public class ImageUtil {
 	/**
 	 * 处理缩略图，返回新生成图片的相对值路径
 	 */
-	public static String generateThumbnail(File thumbnail, String targetAddr) {
+	public static String generateThumbnail(InputStream thumbnailInputStream,String fileName,String targetAddr) {
 		//随即名，年月日时分秒加五位随机数
 		String realFileName = getRandomFileName();
 		//扩展名，文件的拓展名
-		String extension = getFileExtension(thumbnail);
+		String extension = getFileExtension(fileName);
 		String relativeAddr = targetAddr + realFileName + extension;
 		//目录可能不存在，若不存在，去创建目录
 		makeDirPath(targetAddr);
@@ -38,7 +39,7 @@ public class ImageUtil {
 		File dest = new File(PathUtil.getImgBasePath() + relativeAddr);
 		logger.debug("current complete addr id :" + PathUtil.getImgBasePath() + relativeAddr);
 		try {
-			Thumbnails.of(thumbnail).size(200,200)
+			Thumbnails.of(thumbnailInputStream).size(200,200)
 			.watermark(Positions.BOTTOM_RIGHT,ImageIO.read(new File(basePath)),0.25f)
 			.outputQuality(0.8f).toFile(dest);
 		} catch (IOException e) {
@@ -55,8 +56,7 @@ public class ImageUtil {
 		}
 	}
 
-	private static String getFileExtension(File thumbnail) {
-		String fileName = thumbnail.getName();
+	private static String getFileExtension(String fileName) {
 		String suffix = fileName.substring(fileName.lastIndexOf("."));
 		return suffix;
 	}

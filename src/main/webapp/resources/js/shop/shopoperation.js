@@ -3,9 +3,9 @@
  * 2、获取前端表单中的信息，将其转发到后台去注册店铺
  */
 $(function(){
-	var initUrl = '/o2o/shop/getshopinitinfo';
-	var registerShopUrl = 'o2o/shopadmin/registershop';
-	getShopInitInfo;
+	var initUrl = '/o2o/shopadmin/getshopinitinfo';
+	var registerShopUrl = '/o2o/shopadmin/registershop';
+	getShopInitInfo();
 	function getShopInitInfo(){
 		$.getJSON(initUrl,function(data){
 			if(data.success){
@@ -44,6 +44,12 @@ $(function(){
 			var formData = new FormData();
 			formData.append('shopImg',shopImg);
 			formData.append('shopStr',JSON.stringify(shop));
+			var verifyCodeActual = $('#j_captcha').val();
+			if(!verifyCodeActual){
+				$.toast('请输入验证码！');
+				return;
+			}
+			formData.append('verifyCodeActual',verifyCodeActual);
 			$.ajax({
 				url:registerShopUrl,
 				type:'POST',
@@ -57,8 +63,13 @@ $(function(){
 					}else{
 						$.toast('提交失败 !' + data.errMsg);
 					}
+					$('#captcha_img').click();
 				}
 			});
 		});
 	}
 })
+
+function changeVerifyCode(img){
+	img.src="../Kaptcha?" + Math.floor(Math.random()*100);
+}

@@ -14,4 +14,11 @@
 		<setting name="mapUnderscoreToCamelCase" value="true" />
 	</settings> 
 	
+	<!-- 配置mybatis的拦截器，也就是主从分离时设置的拦截器 -->
+	<plugins>
+		<plugin interceptor="com.imooc.o2o.dao.split.DynamicDataSourceInterceptor">
+			
+		</plugin>
+	</plugins>
+	
 </configuration>

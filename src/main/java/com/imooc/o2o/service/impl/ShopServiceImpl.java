@@ -1,6 +1,7 @@
 package com.imooc.o2o.service.impl;
 
 import java.io.File;
+import java.io.InputStream;
 import java.util.Date;
 
 import javax.annotation.Resource;
@@ -26,7 +27,7 @@ public class ShopServiceImpl implements ShopService {
 	@Override
 	@Transactional          
 	//addShop为什么用File做参数，因为这样方便进行单元测试，可以直接new File出来。我日，我就说为啥要用File。原来是这样
-	public ShopExecution addShop(Shop shop, File shopImg) {
+	public ShopExecution addShop(Shop shop, InputStream shopImgInputStream, String fileName) throws ShopOperationException {
 		/**
 		 * 1.先进行空值判断，按照数据库的非空去做空值判断
 		 * 2.insert shop
@@ -51,9 +52,9 @@ public class ShopServiceImpl implements ShopService {
 					if (res <= 0) {
 						throw new ShopOperationException("店铺创建失败");
 					}
-					if (shopImg != null) {
+					if (shopImgInputStream != null) {
 						try {
-							addShopImg(shop,shopImg);
+							addShopImg(shop,shopImgInputStream,fileName);
 						} catch (Exception e) {
 							throw new ShopOperationException("add shopImg error" + e.getMessage());
 						}
@@ -71,9 +72,9 @@ public class ShopServiceImpl implements ShopService {
 	}
 	
 	//这个File，除了后面加水印用到和获取拓展名用到外，其他所有的路径都是使用的PathUtil或者ImageUtil中定义的地址
-	public static void addShopImg(Shop shop, File shopImg) {
+	public static void addShopImg(Shop shop, InputStream shopImgInputStream,String fileName) {
 		String dest = PathUtil.getShopImagePath(shop.getShopId());
-		String shopImgAddr = ImageUtil.generateThumbnail(shopImg, dest);
+		String shopImgAddr = ImageUtil.generateThumbnail(shopImgInputStream,fileName, dest);
 		shop.setShopImg(shopImgAddr);
 	}
 	
